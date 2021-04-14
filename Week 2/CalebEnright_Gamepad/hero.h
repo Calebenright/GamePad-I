@@ -1,4 +1,0 @@
-
-
-int heroX;
-int heroY;

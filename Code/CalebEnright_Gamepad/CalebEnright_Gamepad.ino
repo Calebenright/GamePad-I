@@ -7,19 +7,20 @@
 #include "screen.h"
 #include "tile.h"
 #include "controls.h"
+#include "interactions.h"
+#include "status.h"
 #include "hero.h"
+#include "modes.h"
 
 void setup() {
   Serial.begin(9600);
   initScreen();
-//  initControls();
+  initControls();
+  initNeighbors();
 }
 
 void loop() {
   checkFrame();
-  screenTest();
-//  drawLevels(0);
-//  getControls();
-  tft.updateScreen();
-
+  getControls();
+  runMode();
 }
