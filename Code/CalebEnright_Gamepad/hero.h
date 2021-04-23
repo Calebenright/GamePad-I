@@ -5,9 +5,9 @@
 //float heroX = 160;
 //float heroY = 190;
 
-float heroX = 160;
-float heroY = 190;
-float heroSpeed = .4;
+float heroX = 159;
+float heroY = 189;
+float heroSpeed = .3;
 float xMax = 260;
 float xMin = 5;
 float yMax = 190;
@@ -19,27 +19,31 @@ float heroMidY = heroY + 20;
 float nextX;
 float nextY;
 
-#include <Metro.h>
 Metro heroAnim = Metro(100);
 
-void drawHero(int curLvl) {
+void drawHero() {
 
-  //   nextX = heroX + (float(joystickBuffer[0]) * heroSpeed);
-  //   nextY = heroY + (float(joystickBuffer[1]) * heroSpeed);
-  //
-  //    //  Check Neighbors
-  //    checkMove(curLvl, nextX, nextY, mainChar_W, mainChar_H);
-  //
-  //   if (canMove){
-  //    heroX = nextX;
-  //    heroY = nextY;
-  //   }
+  nextX = heroX + (float(joystickBuffer[0]) * heroSpeed);
+  nextY = heroY + (float(joystickBuffer[1]) * heroSpeed);
 
+  //  Check Neighbors
 
-  //  // DAMAGE TEST
-  //  if (heroX < 40 && heroY > 120 && heroY < 140) {
-  //    updateHealth(50);
-  //  }
+  if (checkMove(curMode, nextX, nextY, mainChar_W, mainChar_H) == true) {
+    heroX = nextX;
+    heroY = nextY;
+  }
+
+  // DAMAGE TEST
+//  if (heroX < 40 && heroY > 120 && heroY < 140) {
+//    if (!isDamaged) {
+//      damageNum++;
+//    }
+//    isDamaged = true;
+//  } else {
+//    isDamaged = false;
+//  }
+
+  // PICKUPS
 
 
   // BOUNDARIES
@@ -58,30 +62,30 @@ void drawHero(int curLvl) {
 
   //   MOVEMENT
   if (joystickBuffer[0] == -1 && joystickBuffer[1] == 1) {
-    heroX = heroX - heroSpeed * 3 / 4;
-    heroY = heroY + heroSpeed * 3 / 4;
+    //  heroX = heroX - heroSpeed * 3 / 4;
+    //  heroY = heroY + heroSpeed * 3 / 4;
     heroDir = false;
   } else if (joystickBuffer[0] == 1 && joystickBuffer[1] == -1) {
-    heroX = heroX + heroSpeed * 3 / 4;
-    heroY = heroY - heroSpeed * 3 / 4;
+    //  heroX = heroX + heroSpeed * 3 / 4;
+    //  heroY = heroY - heroSpeed * 3 / 4;
     heroDir = true;
   } else if (joystickBuffer[0] == 1 && joystickBuffer[1] == 1) {
-    heroX = heroX + heroSpeed * 3 / 4;
-    heroY = heroY + heroSpeed * 3 / 4;
+    //  heroX = heroX + heroSpeed * 3 / 4;
+    //  heroY = heroY + heroSpeed * 3 / 4;
     heroDir = true;
   } else if (joystickBuffer[0] == -1 && joystickBuffer[1] == -1) {
-    heroX = heroX - heroSpeed * 3 / 4;
-    heroY = heroY - heroSpeed * 3 / 4;
+    //  heroX = heroX - heroSpeed * 3 / 4;
+    //  heroY = heroY - heroSpeed * 3 / 4;
     heroDir = false;
   } else if (joystickBuffer[1] == 1) {
-    heroY = heroY + heroSpeed;
+    //  heroY = heroY + heroSpeed;
   } else if (joystickBuffer[0] == 1) {
-    heroX = heroX + heroSpeed;
+    //  heroX = heroX + heroSpeed;
     heroDir = true;
   } else if (joystickBuffer[1] == -1) {
-    heroY = heroY - heroSpeed;
+    //  heroY = heroY - heroSpeed;
   } else if (joystickBuffer[0] == -1) {
-    heroX = heroX - heroSpeed;
+    //  heroX = heroX - heroSpeed;
     heroDir = false;
   } else {
     if (heroDir) {
@@ -98,12 +102,14 @@ void drawHero(int curLvl) {
         heroFrame = (heroFrame + 1) % 4;
       } else {
         heroFrame = ((heroFrame + 1) % 4) + 4;
-        Serial.println(heroFrame);
+        //        Serial.println(heroFrame);
       }
     }
   }
 
-  tft.setClipRect(heroX - 10, heroY - 10, 75, 75);
+  tft.setClipRect(heroX - 1, heroY - 1, 26, 42);
   tft.drawRGBBitmap(heroX, heroY, mainChar_PIX[heroFrame], mainChar_MASK[heroFrame], mainChar_W, mainChar_H);
   tft.updateScreen();
+
+
 }

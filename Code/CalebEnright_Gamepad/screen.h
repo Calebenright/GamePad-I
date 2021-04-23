@@ -11,7 +11,6 @@ ILI9341_t3n tft = ILI9341_t3n(TFT_CS, TFT_DC, TFT_RST);
 #define screenH  240
 DMAMEM uint16_t screenBuffer[screenW * screenH];                    // Screen Buffer
 
-#include <Metro.h>
 Metro screenFresh = Metro(50);
 
 boolean switchMetro = true;

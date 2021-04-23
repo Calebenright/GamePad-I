@@ -1,4 +1,4 @@
-#include <Bounce2.h>
+
 int buttonBounce = 10;
 Bounce * buttons = new Bounce[4];
 
@@ -8,7 +8,6 @@ int buttonBuffer[4] = {0, 0, 0, 0};
 int joystickPins[2] = {A0, A1};
 int joystickBuffer[2] = {0, 0};
 
-#include <Metro.h>
 Metro controlT = Metro(100);
 
 void initControls() {
