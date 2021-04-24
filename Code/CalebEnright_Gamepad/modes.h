@@ -49,6 +49,8 @@ void nextLevel3() {
   // NEXT LEVELS
   if (heroX > 155 && heroX < 165 && heroY < -9) {
     isLevelDrawn = false;
+    enemyX = random(100,300);
+    enemyY = random(85,110);
     curMode = 2;
     heroX = 160;
     heroY = 188;
@@ -68,6 +70,8 @@ void nextLevel4() {
   // NEXT LEVELS
   if (heroX > 215 && heroX < 225 && heroY < -9) {
     isLevelDrawn = false;
+    enemyX = random(100,300);
+    enemyY = random(85,150);
     curMode = 3;
     heroX = 220;
     heroY = 188;
@@ -78,6 +82,8 @@ void nextLevel4Back3() {
   // NEXT LEVELS
   if (heroX > 215 && heroX < 225 && heroY > 189) {
     isLevelDrawn = false;
+    enemyX = random(100,300);
+    enemyY = random(85,130);
     curMode = 2;
     heroX = 220;
     heroY = 0;
@@ -88,19 +94,23 @@ void nextLevel5() {
   // NEXT LEVELS
   if (heroX < 11 && heroY > 155 && heroY < 165) {
     isLevelDrawn = false;
-    curMode = 4;
+    enemyX = random(50,200);
+    enemyY = random(10,150);
     heroX = 239;
     heroY = 160;
+    curMode = 4;
   }
 }
 
 void nextLevel5Back4() {
   // NEXT LEVELS
-  if (heroX > 250 && heroY < 165 && heroY > 155) {
+  if (heroX > 240 && heroY < 165 && heroY > 155) {
     isLevelDrawn = false;
-    curMode = 2;
+    enemyX = random(50,1500);
+    enemyY = random(80,150);
     heroX = 12;
     heroY = 160;
+    curMode = 2;
   }
 }
 
@@ -108,9 +118,11 @@ void nextLevel6back5() {
   // NEXT LEVELS
   if (heroX > 250 && heroY < 165 && heroY > 155) {
     isLevelDrawn = false;
-    curMode = 4;
+    enemyX = random(50,200);
+    enemyY = random(10,150);
     heroX = 12;
     heroY = 160;
+    curMode = 4;
   }
 }
 
@@ -118,14 +130,16 @@ void nextLevel6() {
   // NEXT LEVELS
   if (heroX < 11 && heroY > 155 && heroY < 165) {
     isLevelDrawn = false;
-    curMode = 5;
+    enemyX = random(70,171);
+    enemyY = random(10,100);
     heroX = 239;
     heroY = 160;
+    curMode = 5;
   }
 }
 
 void firstLevel() {
-   heroSpeed = .3;
+   heroSpeed = .6;
   if (!isLevelDrawn) {
     tft.setClipRect(0, 0, screenW, screenH);
     drawLevels(1);
@@ -133,7 +147,11 @@ void firstLevel() {
     isLevelDrawn = true;
   }
   drawLevels(1);
+  pickup(curMode, heroX, heroY);
   drawHero();
+  drawLevels(1);
+  selectCoin();
+  updateHealth(damageNum);
   nextLevel2();
   nextLevel3();
 }
@@ -146,18 +164,18 @@ void secondLevel() {
     tft.updateScreen();
     isLevelDrawn = true;
   }
-  fight();
   drawLevels(2);
+  pickup(curMode, heroX, heroY);
   drawHero();
   drawLevels(2);
-  drawEnemy();
-  drawLevels(2);
+  selectCoin();
+  mapDamage(curMode, heroX, heroY);
   updateHealth(damageNum);
   nextLevel2Back();
 }
 
 void thirdLevel() {
-  heroSpeed = .5;
+  heroSpeed = .8;
   if (!isLevelDrawn) {
     tft.setClipRect(0, 0, screenW, screenH);
     drawLevels(3);
@@ -166,10 +184,12 @@ void thirdLevel() {
   }
   fight();
   drawLevels(3);
+  pickup(curMode, heroX, heroY);
   drawHero();
   drawLevels(3);
-  drawEnemy();
+  drawEnemy(5,1,.25);
   drawLevels(3);
+  selectCoin();
   updateHealth(damageNum);
   nextLevel3Back1();
   nextLevel4();
@@ -177,7 +197,7 @@ void thirdLevel() {
 }
 
 void fourthLevel() {
-  heroSpeed = .3;
+  heroSpeed = .8;
   if (!isLevelDrawn) {
     tft.setClipRect(0, 0, screenW, screenH);
     drawLevels(4);
@@ -185,34 +205,51 @@ void fourthLevel() {
     isLevelDrawn = true;
   }
   drawLevels(4);
+  pickup(curMode, heroX, heroY);
   drawHero();
+  drawLevels(4);
+  selectCoin();
+  updateHealth(damageNum);
   nextLevel4Back3();
 }
 
 void fifthLevel() {
-  heroSpeed = .5;
+  heroSpeed = .6;
   if (!isLevelDrawn) {
     tft.setClipRect(0, 0, screenW, screenH);
     drawLevels(5);
     tft.updateScreen();
     isLevelDrawn = true;
   }
+  fight();
   drawLevels(5);
+  pickup(curMode, heroX, heroY);
   drawHero();
+  drawLevels(5);
+  drawEnemy(3,1,.25);
+  drawLevels(5);
+  selectCoin();
+  updateHealth(damageNum);
   nextLevel5Back4(); 
   nextLevel6();
 }
 
 void sixthLevel() {
-  heroSpeed = .5;
+  heroSpeed = .8;
   if (!isLevelDrawn) {
     tft.setClipRect(0, 0, screenW, screenH);
     drawLevels(6);
     tft.updateScreen();
     isLevelDrawn = true;
   }
+  fight();
   drawLevels(6);
   drawHero();
+  drawLevels(6);
+  drawBitKing(2,5,.5);
+  drawLevels(6);
+  selectCoin();
+  updateHealth(damageNum);
   nextLevel6back5();
 }
 
@@ -254,11 +291,15 @@ void deathScreen() {
   }
 }
 
+void gameReset(){
+  
+}
+
 void runMode() {
   switch (curMode) {
     case -3: deathScreen(); break;
     case -2: winScreen(); break;
-    case -1: introScreen(); break;
+    case -1: gameReset(); introScreen(); break;
     case 0: firstLevel(); break;
     case 1: secondLevel(); break;
     case 2: thirdLevel(); break;
