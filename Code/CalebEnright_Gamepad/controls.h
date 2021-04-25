@@ -37,8 +37,10 @@ void getControls() {
       joystickBuffer[i] = 0;
     }
   }
+
+// CHECK CONTROLS
 //
-  if (controlT.check()) {
+//  if (controlT.check()) {
 //    // right & left
 //    // middle from 470-560
 //    Serial.println(joystickBuffer[0]);
@@ -55,5 +57,5 @@ void getControls() {
 //    Serial.println(buttonBuffer[2]);
 //    // Bottom Button
 //    Serial.println(buttonBuffer[3]);
-  }
+//  }
 }

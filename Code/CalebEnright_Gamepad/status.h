@@ -64,9 +64,30 @@ void selectCoin(){
   tft.drawRGBBitmap(280, 160, HUD_PIX[0x25], 20, 20);
   tft.drawRGBBitmap(280, 140, HUD_PIX[0x26], 20, 20);
   tft.updateScreen();
+  } else {
+  tft.setClipRect(280, 140, 20, 100);
+  tft.drawRGBBitmap(280, 220, HUD_PIX[0x25], 20, 20);
+  tft.drawRGBBitmap(280, 200, HUD_PIX[0x25], 20, 20);
+  tft.drawRGBBitmap(280, 180, HUD_PIX[0x25], 20, 20);
+  tft.drawRGBBitmap(280, 160, HUD_PIX[0x25], 20, 20);
+  tft.drawRGBBitmap(280, 140, HUD_PIX[0x25], 20, 20);
+  tft.updateScreen();
   }
   if (buttons[0].fell() == 1){
     coinNum = (coinNum + 1) % 5;
+    isShooting = false;
+    coinSwitchReset = true;
+  }
+  if (buttons[1].fell() == 1){
+    if (coinNum == -1){
+      coinNum = 4;
+      isShooting = false;
+      coinSwitchReset = true;
+    } else {
+      coinNum = (coinNum - 1);
+      isShooting = false;
+      coinSwitchReset = true;
+    }
   }
 
   if (chest1){

@@ -22,28 +22,25 @@ float nextY;
 Metro heroAnim = Metro(100);
 
 void drawHero() {
-
+  
   nextX = heroX + (float(joystickBuffer[0]) * heroSpeed);
   nextY = heroY + (float(joystickBuffer[1]) * heroSpeed);
 
   //  Check Neighbors
-
   if (checkMove(curMode, nextX, nextY, mainChar_W, mainChar_H) == true) {
     heroX = nextX;
     heroY = nextY;
   }
 
   // DAMAGE TEST
-//  if (heroX < 40 && heroY > 120 && heroY < 140) {
-//    if (!isDamaged) {
-//      damageNum++;
-//    }
-//    isDamaged = true;
-//  } else {
-//    isDamaged = false;
-//  }
-
-  // PICKUPS
+  //  if (heroX < 40 && heroY > 120 && heroY < 140) {
+  //    if (!isDamaged) {
+  //      damageNum++;
+  //    }
+  //    isDamaged = true;
+  //  } else {
+  //    isDamaged = false;
+  //  }
 
 
   // BOUNDARIES
@@ -107,6 +104,7 @@ void drawHero() {
     }
   }
 
+  // DRAWS HERO
   tft.setClipRect(heroX - 1, heroY - 1, 26, 42);
   tft.drawRGBBitmap(heroX, heroY, mainChar_PIX[heroFrame], mainChar_MASK[heroFrame], mainChar_W, mainChar_H);
   tft.updateScreen();

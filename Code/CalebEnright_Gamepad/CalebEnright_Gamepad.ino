@@ -25,8 +25,6 @@ void setup() {
 }
 
 void loop() {
-  Serial.println(joystickBuffer[0]);
-  Serial.println(joystickBuffer[1]);
   checkFrame();
   getControls();
   runMode();
