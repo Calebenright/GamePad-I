@@ -1,5 +1,5 @@
 // CJ
-// EtherRush
+// EtherRush 2.0
 // Gamepad - Advanced Protootyping
 
 int curMode = -1;
